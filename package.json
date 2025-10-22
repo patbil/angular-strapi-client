@@ -1,0 +1,50 @@
+{
+  "name": "angular-strapi-client",
+  "version": "0.0.1",
+  "description": "A type-safe Angular HTTP client library for Strapi v5+ with support for filtering, sorting, pagination, population, and localization",
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/angular-strapi-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/angular-strapi-client/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/angular-strapi-client#readme",
+  "keywords": [
+    "angular",
+    "strapi",
+    "strapi-v5",
+    "http-client",
+    "cms",
+    "headless-cms",
+    "rest-api",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/compiler": "^19.2.0",
+    "@angular/compiler-cli": "^19.2.0",
+    "@angular/platform-browser": "^19.2.0",
+    "@angular/platform-browser-dynamic": "^19.2.0",
+    "ng-packagr": "^19.0.0",
+    "typescript": "~5.7.0",
+    "zone.js": "~0.15.0"
+  },
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "npm run build && cd dist && npm pack"
+  },
+  "sideEffects": false
+}
