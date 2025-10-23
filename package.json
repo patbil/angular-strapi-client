@@ -38,6 +38,9 @@
       "typescript": "~5.7.0",
       "zone.js": "~0.15.0"
    },
+   "publishConfig": {
+      "access": "public"
+   },
    "scripts": {
       "build": "ng-packagr -p ng-package.json",
       "publish": "npm run build && cd dist && npm publish",
