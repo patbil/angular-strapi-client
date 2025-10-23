@@ -1,6 +1,6 @@
 # Angular Strapi Client
 
-[![npm version](https://badge.fury.io/js/angular-strapi-client.svg)](https://www.npmjs.com/package/angular-strapi-client)
+[![npm version](https://badge.fury.io/js/angular-strapi-client.svg?cacheSeconds=600)](https://www.npmjs.com/package/angular-strapi-client)
 
 A type-safe Angular HTTP client library for Strapi v5+ with support for filtering, sorting, pagination, population, and localization.
 
