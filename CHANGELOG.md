@@ -14,15 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
--  **Project structure**: Reorganized services into dedicated subdirectories (`service/auth/`, `service/http/`, `service/strapi/`)
--  **StrapiService**: Refactored to use `AuthService` and `HttpBuilderService` internally
--  **Public API**: Updated exports to include `AuthService` and new models
+-  **Project structure**: Reorganized services into dedicated subdirectories
 -  **README.md**: Improved documentation with detailed examples and API reference
 -  **package.json**: Updated author information and repository URLs
-
-### Removed
-
--  **Test files**: Removed placeholder spec files (will be replaced with comprehensive tests in future release)
 
 ### Breaking Changes
 
