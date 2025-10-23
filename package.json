@@ -1,17 +1,14 @@
 {
    "name": "angular-strapi-client",
-   "version": "0.0.1",
+   "version": "0.0.2",
    "description": "A type-safe Angular HTTP client library for Strapi v5+ with support for filtering, sorting, pagination, population, and localization",
-   "author": "",
+   "author": "Patryk Bilski",
    "license": "MIT",
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/YOUR_USERNAME/angular-strapi-client.git"
+      "url": "git+https://github.com/patbil/angular-strapi-client.git"
    },
-   "bugs": {
-      "url": "https://github.com/YOUR_USERNAME/angular-strapi-client/issues"
-   },
-   "homepage": "https://github.com/YOUR_USERNAME/angular-strapi-client#readme",
+   "homepage": "https://github.com/patbil/angular-strapi-client#readme",
    "keywords": [
       "angular",
       "strapi",
@@ -43,6 +40,7 @@
    },
    "scripts": {
       "build": "ng-packagr -p ng-package.json",
+      "publish": "npm run build && cd dist && npm publish",
       "test": "echo \"Error: no test specified\" && exit 1",
       "pack": "npm run build && cd dist && npm pack"
    },

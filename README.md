@@ -11,7 +11,6 @@ A type-safe Angular HTTP client library for Strapi v5+ with support for filterin
 -  Advanced filtering, sorting, and population
 -  Built-in pagination and localization support
 -  Bearer token authentication
--  Automatic retry and error handling
 
 ## Installation
 
@@ -64,23 +63,23 @@ this.articlesService.get().subscribe((response) => {
    console.log(response.data);
 });
 
-// Fetch by ID
+// Fetch by numeric ID (legacy)
 this.articlesService.get(123).subscribe((response) => {
    console.log(response.data);
 });
 
-// Create
+// Create (no ID)
 this.articlesService
-   .save(undefined, { title: 'New Article' })
+   .save(null, { title: 'New Article' })
    .subscribe((response) => console.log(response.data));
 
-// Update
+// Update (with ID)
 this.articlesService
-   .save(123, { title: 'Updated' })
+   .save('abc123xyz', { title: 'Updated' })
    .subscribe((response) => console.log(response.data));
 
 // Delete
-this.articlesService.delete(123).subscribe();
+this.articlesService.delete('abc123xyz').subscribe();
 ```
 
 ## Advanced Usage
@@ -199,8 +198,18 @@ this.articlesService
 ### Authentication
 
 ```typescript
-this.articlesService.setAuthToken('your-jwt-token');
-this.articlesService.clearAuthToken();
+import { AuthService } from 'angular-strapi-client';
+
+constructor(private authService: AuthService) {}
+
+// Set authentication token (will be used for all requests)
+this.authService.setAuthToken('your-jwt-token');
+
+// Get current token
+const token = this.authService.getAuthToken();
+
+// Clear authentication token
+this.authService.clearAuthToken();
 ```
 
 ## API Reference
@@ -208,17 +217,37 @@ this.articlesService.clearAuthToken();
 ### StrapiService Methods
 
 -  `get(id?, params?, options?)` - Fetch entries or single entry
--  `save(id, data, options?, method?)` - Create or update entry
+-  `save(id, data, options?, method?)` - Create (id=null) or update entry
 -  `delete(id, options?)` - Delete entry
--  `setAuthToken(token)` - Set authentication token
+
+### AuthService Methods
+
+-  `setAuthToken(token: string)` - Set authentication token for all requests
+-  `getAuthToken()` - Get current authentication token
 -  `clearAuthToken()` - Remove authentication token
+
+### StrapiResponse Interface
+
+```typescript
+interface StrapiResponse<T> {
+   data: T[]; // Array of entries or single entry
+   meta?: {
+      pagination?: {
+         page: number;
+         pageSize: number;
+         pageCount: number;
+         total: number;
+      };
+   };
+}
+```
 
 ### StrapiEntry Interface
 
 ```typescript
 interface StrapiEntry {
-   id: number;
-   documentId: string;
+   id: number; // Numeric ID (legacy)
+   documentId: string; // Document ID (Strapi v5+)
    createdAt: string;
    updatedAt: string;
    publishedAt: string;
@@ -226,19 +255,19 @@ interface StrapiEntry {
 }
 ```
 
-## Building
+## Troubleshooting
 
-```bash
-ng build angular-strapi-client
-```
+### CORS Issues
 
-## Publishing
+If you encounter CORS errors, ensure your Strapi backend is configured to accept requests from your Angular app origin.
 
-```bash
-ng build angular-strapi-client
-cd dist/angular-strapi-client
-npm publish
-```
+### 401 Unauthorized
+
+Check that your JWT token is valid and properly set using `AuthService.setAuthToken()`.
+
+### 404 Not Found
+
+Verify the API path in your service matches your Strapi content type (e.g., `/api/articles` not `/articles`).
 
 ## Requirements
 
