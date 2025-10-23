@@ -1,4 +1,4 @@
-import { StrapiMetadata } from "./strapi-metadata";
+import { StrapiMetadata } from './strapi-metadata';
 
 export interface StrapiResponse<T> {
    data: T[];

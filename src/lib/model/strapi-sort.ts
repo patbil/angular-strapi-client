@@ -1,4 +1,4 @@
-type SortOrder = "asc" | "desc";
+type SortOrder = 'asc' | 'desc';
 type SortField<T> = Extract<keyof T, string>;
 type SortWithOrder<T> = `${SortField<T>}:${SortOrder}`;
 

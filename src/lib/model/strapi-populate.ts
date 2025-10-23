@@ -1,5 +1,5 @@
-import { StrapiSort } from "./strapi-sort";
-import { StrapiFilter } from "./strapi-filters";
+import { StrapiSort } from './strapi-sort';
+import { StrapiFilter } from './strapi-filters';
 
 export interface PopulateOperators<T> {
    populate?: PopulateValue<T>;
@@ -11,5 +11,5 @@ export interface PopulateOperators<T> {
 
 export type PopulateValue<T> =
    | string[]
-   | "*"
+   | '*'
    | Record<string, PopulateOperators<T>>;
