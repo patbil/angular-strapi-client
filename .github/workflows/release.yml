@@ -1,20 +1,24 @@
 name: Release
 
 on:
-   push:
-      branches:
-         - main
+  push:
+    branches:
+      - main
 
 jobs:
-   release:
-      runs-on: ubuntu-latest
-      steps:
-         - uses: actions/checkout@v3
-         - uses: actions/setup-node@v3
-           with:
-              node-version: '20'
-         - run: npm ci
-         - run: npx standard-version
-         - run: npm publish --access public
-           env:
-              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - run: npm ci
+      - name: Setup Git user
+        run: |
+          git config --global user.name "Patryk Bilski"
+          git config --global user.email "patrykb-97@wp.pl"
+      - run: npx standard-version
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
