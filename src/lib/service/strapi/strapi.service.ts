@@ -12,7 +12,7 @@ import { StrapiRequestOptions } from '../../model/strapi-request-options';
    providedIn: 'root',
 })
 export abstract class StrapiService<T> {
-   private readonly url!: string;
+   protected readonly url!: string;
    abstract path: string;
 
    constructor(
