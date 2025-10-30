@@ -6,11 +6,11 @@ A type-safe Angular HTTP client library for Strapi v5+ with support for filterin
 
 ## Features
 
--  Full TypeScript support with generics
--  Strapi v5 compatible
--  Advanced filtering, sorting, and population
--  Built-in pagination and localization support
--  Bearer token authentication
+- Full TypeScript support with generics
+- Strapi v5 compatible
+- Advanced filtering, sorting, and population
+- Built-in pagination and localization support
+- Bearer token authentication
 
 ## Installation
 
@@ -107,8 +107,8 @@ For more details see this page: [Strapi filters](https://docs.strapi.io/cms/api/
 You can sort one or more fields.
 Sorting order can be defined by operators:
 
--  :asc - for ascending (default, can be omitted)
--  :desc - for descending
+- :asc - for ascending (default, can be omitted)
+- :desc - for descending
 
 ```typescript
 // Single field
@@ -216,15 +216,15 @@ this.authService.clearAuthToken();
 
 ### StrapiService Methods
 
--  `get(id?, params?, options?)` - Fetch entries or single entry
--  `save(id, data, options?, method?)` - Create (id=null) or update entry
--  `delete(id, options?)` - Delete entry
+- `get(id?, params?, options?)` - Fetch entries or single entry
+- `save(id, data, options?, method?)` - Create (id=null) or update entry
+- `delete(id, options?)` - Delete entry
 
 ### AuthService Methods
 
--  `setAuthToken(token: string)` - Set authentication token for all requests
--  `getAuthToken()` - Get current authentication token
--  `clearAuthToken()` - Remove authentication token
+- `setAuthToken(token: string)` - Set authentication token for all requests
+- `getAuthToken()` - Get current authentication token
+- `clearAuthToken()` - Remove authentication token
 
 ### StrapiResponse Interface
 
@@ -271,5 +271,5 @@ Verify the API path in your service matches your Strapi content type (e.g., `/ap
 
 ## Requirements
 
--  Angular 19.2.0+
--  Strapi v5+
+- Angular 19.2.0+
+- Strapi v5+

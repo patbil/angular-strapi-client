@@ -1,6 +1,6 @@
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { StrapiParams } from '../../model/strapi-params';
 import { Injectable } from '@angular/core';
+import { StrapiParams } from '../../model/strapi-params';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
    providedIn: 'root',
