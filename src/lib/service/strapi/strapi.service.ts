@@ -1,13 +1,13 @@
-import { retry } from 'rxjs';
+import { retry, map } from 'rxjs';
 import { normalize } from '../normalize-response';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { StrapiParams } from '../../model/strapi-params';
 import { HttpBuilder } from '../http/http-builder.service';
-import { StrapiResponse } from '../../model/strapi-response';
 import { STRAPI_CONFIG, StrapiConfig } from '../../model/strapi-config';
 import { StrapiRequestOptions } from '../../model/strapi-request-options';
+import { StrapiObservable, StrapiResponse } from '../../model/strapi-response';
 
 @Injectable({
    providedIn: 'root',
@@ -25,25 +25,28 @@ export abstract class StrapiService<T> {
       this.url = strapiConfig.url;
    }
 
-   get(
-      id?: string | number,
+   get<U extends string | number | undefined = undefined>(
+      id?: U,
       params?: StrapiParams<T>,
       options?: StrapiRequestOptions
    ) {
       const url = this.httpBuilder.url(this.url, this.path, id);
+      const httpParams = this.httpBuilder.params(params);
       const headers = this.httpBuilder.headers(
          this.authService.getAuthToken(),
          options?.headers
       );
-      const httpParams = this.httpBuilder.params(params);
 
       return this.httpClient
-         .get<StrapiResponse<T>>(url, {
+         .get<StrapiResponse>(url, {
             headers,
             params: httpParams,
             withCredentials: options?.withCredentials,
          })
-         .pipe(normalize(), retry({ count: 2, delay: 1000 }));
+         .pipe(
+            normalize(typeof id !== 'undefined'),
+            retry({ count: 2, delay: 1000 })
+         ) as StrapiObservable<T, U>;
    }
 
    save(
@@ -58,14 +61,15 @@ export abstract class StrapiService<T> {
          options?.headers
       );
       const httpMethod = method || (id ? 'PUT' : 'POST');
-
-      return this.httpClient
-         .request<StrapiResponse<T>>(httpMethod.toLowerCase(), url, {
+      return this.httpClient.request<StrapiResponse<T>>(
+         httpMethod.toLowerCase(),
+         url,
+         {
             headers,
             body: { data },
             withCredentials: options?.withCredentials,
-         })
-         .pipe(normalize());
+         }
+      );
    }
 
    delete(id: number | string, options?: StrapiRequestOptions) {
@@ -75,11 +79,9 @@ export abstract class StrapiService<T> {
          options?.headers
       );
 
-      return this.httpClient
-         .delete<StrapiResponse<T>>(url, {
-            headers,
-            withCredentials: options?.withCredentials,
-         })
-         .pipe(normalize());
+      return this.httpClient.delete<void>(url, {
+         headers,
+         withCredentials: options?.withCredentials,
+      });
    }
 }

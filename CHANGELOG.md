@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.7] - 2025-11-03
+
+### Feature
+
+**StrapiService** – Fixed the response to return either an object or an array depending on whether an ID is provided.
+
 ## [0.0.6] - 2025-11-03
 
 ### Fixes

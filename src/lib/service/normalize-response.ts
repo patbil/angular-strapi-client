@@ -1,9 +1,15 @@
 import { map } from 'rxjs';
 import { StrapiResponse } from '../model/strapi-response';
 
-export function normalize() {
+export function normalize(isSingle: boolean) {
    return map((response: StrapiResponse) => ({
       ...response,
-      data: Array.isArray(response.data) ? response.data : [response.data],
+      data: isSingle
+         ? Array.isArray(response.data) && response.data.length
+            ? response.data[0]
+            : response.data
+         : Array.isArray(response.data)
+         ? response.data
+         : [response.data],
    }));
 }

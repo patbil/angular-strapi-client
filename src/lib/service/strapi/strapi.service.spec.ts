@@ -1,4 +1,10 @@
 import {
+   Article,
+   createMockArticle,
+   createMockResponse,
+   mockResponse,
+} from './mock-data';
+import {
    HttpTestingController,
    provideHttpClientTesting,
 } from '@angular/common/http/testing';
@@ -9,12 +15,6 @@ import { AuthService } from '../auth/auth.service';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpBuilder } from '../http/http-builder.service';
 import { STRAPI_CONFIG, StrapiConfig } from '../../model/strapi-config';
-import {
-   Article,
-   createMockArticle,
-   createMockResponse,
-   mockResponse,
-} from './mock-data';
 
 @Injectable({ providedIn: 'root' })
 class StrapiServiceInstance extends StrapiService<Article> {
@@ -105,28 +105,23 @@ describe('StrapiService', () => {
       });
 
       strapiService.save(undefined, newArticle).subscribe((result) => {
-         expect(result.data.length).toBe(3);
-         expect(result.data[2].author).toBe('Bil');
-         expect(result.meta?.pagination?.total).toBe(3);
+         expect(result.data).toBe(newArticle);
       });
 
       const request = httpMock.expectOne(mockConfig.url + strapiService.path);
       expect(request.request.method).toBe('POST');
       expect(request.request.body).toEqual({ data: newArticle });
-      request.flush(
-         createMockResponse([...mockResponse.data, newArticle], { total: 3 })
-      );
+      request.flush(createMockResponse(newArticle));
    });
 
    it('should delete article', () => {
       strapiService.delete(1).subscribe((result) => {
-         expect(result.data.length).toBe(1);
-         expect(result.data[0].author).toBe('Jane');
+         expect(result).toBeNull();
       });
 
       const request = httpMock.expectOne(mockConfig.url + strapiService.path);
       expect(request.request.method).toBe('DELETE');
-      request.flush(createMockResponse([mockResponse.data[1]], { total: 1 }));
+      request.flush(null, { status: 204, statusText: 'No content' });
    });
 
    it('should be handle error', () => {
