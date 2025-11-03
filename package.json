@@ -48,5 +48,10 @@
       "test": "jest",
       "pack": "npm run build && cd dist && npm pack"
    },
+   "standard-version": {
+      "skip": {
+         "changelog": true
+      }
+   },
    "sideEffects": false
 }

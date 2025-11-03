@@ -1,4 +1,5 @@
 import { retry } from 'rxjs';
+import { normalize } from '../normalize-response';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
@@ -42,7 +43,7 @@ export abstract class StrapiService<T> {
             params: httpParams,
             withCredentials: options?.withCredentials,
          })
-         .pipe(retry({ count: 2, delay: 1000 }));
+         .pipe(normalize(), retry({ count: 2, delay: 1000 }));
    }
 
    save(
@@ -58,15 +59,13 @@ export abstract class StrapiService<T> {
       );
       const httpMethod = method || (id ? 'PUT' : 'POST');
 
-      return this.httpClient.request<StrapiResponse<T>>(
-         httpMethod.toLowerCase(),
-         url,
-         {
+      return this.httpClient
+         .request<StrapiResponse<T>>(httpMethod.toLowerCase(), url, {
             headers,
             body: { data },
             withCredentials: options?.withCredentials,
-         }
-      );
+         })
+         .pipe(normalize());
    }
 
    delete(id: number | string, options?: StrapiRequestOptions) {
@@ -76,9 +75,11 @@ export abstract class StrapiService<T> {
          options?.headers
       );
 
-      return this.httpClient.delete<StrapiResponse<T>>(url, {
-         headers,
-         withCredentials: options?.withCredentials,
-      });
+      return this.httpClient
+         .delete<StrapiResponse<T>>(url, {
+            headers,
+            withCredentials: options?.withCredentials,
+         })
+         .pipe(normalize());
    }
 }
