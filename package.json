@@ -1,6 +1,6 @@
 {
    "name": "angular-strapi-client",
-   "version": "0.0.6",
+   "version": "0.0.7",
    "description": "A type-safe Angular HTTP client library for Strapi v5+ with support for filtering, sorting, pagination, population, and localization",
    "author": "Patryk Bilski",
    "license": "MIT",
