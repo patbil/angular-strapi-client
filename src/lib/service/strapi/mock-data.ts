@@ -8,7 +8,7 @@ export interface Article extends StrapiEntry {
    author: string;
 }
 
-export const mockResponse: StrapiResponse<Article> = {
+export const mockResponse: StrapiResponse<Article[]> = {
    data: [
       {
          id: 1,
@@ -49,17 +49,19 @@ export const createMockArticle = (overrides?: Partial<Article>): Article => ({
 });
 
 export const createMockResponse = (
-   data: Article[],
+   data: Article | Article[],
    pagination?: Partial<StrapiPagination>
-): StrapiResponse<Article> => ({
+): StrapiResponse<Article | Article[]> => ({
    data,
-   meta: {
-      pagination: {
-         page: 1,
-         pageCount: 1,
-         pageSize: 25,
-         total: data.length,
-         ...pagination,
-      },
-   },
+   meta: Array.isArray(data)
+      ? {
+           pagination: {
+              page: 1,
+              pageCount: 1,
+              pageSize: 25,
+              total: data?.length,
+              ...pagination,
+           },
+        }
+      : undefined,
 });
